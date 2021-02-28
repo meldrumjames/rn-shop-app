@@ -1,29 +1,46 @@
 import React from "react";
-import { View, Text, Image, StyleSheet, Button } from "react-native";
+import {
+  View,
+  Text,
+  Image,
+  StyleSheet,
+  Button,
+  TouchableOpacity,
+  TouchableNativeFeedback,
+  Platform,
+} from "react-native";
 
 import Colors from "../../constants/Colors";
 
 const ProductItem = (props) => {
+  let TouchableComp = TouchableOpacity;
+
+  if (Platform.OS === "android" && Platform.Version >= 21) {
+    TouchableComp = TouchableNativeFeedback;
+  }
+
   return (
-    <View style={styles.product}>
-      <Image source={{ uri: props.image }} style={styles.image} />
-      <View style={styles.details}>
-        <Text style={styles.title}>{props.title}</Text>
-        <Text style={styles.price}>£{props.price.toFixed(2)}</Text>
+    <TouchableComp onPress={props.onViewDetail} useForeground>
+      <View style={styles.product}>
+        <Image source={{ uri: props.image }} style={styles.image} />
+        <View style={styles.details}>
+          <Text style={styles.title}>{props.title}</Text>
+          <Text style={styles.price}>£{props.price.toFixed(2)}</Text>
+        </View>
+        <View style={styles.actions}>
+          <Button
+            color={Colors.primaryColor}
+            title="View details"
+            onPress={props.onViewDetail}
+          />
+          <Button
+            color={Colors.primaryColor}
+            title="Add to cart"
+            onPress={props.onAddToCart}
+          />
+        </View>
       </View>
-      <View style={styles.actions}>
-        <Button
-          color={Colors.primaryColor}
-          title="View details"
-          onPress={props.onViewDetail}
-        />
-        <Button
-          color={Colors.primaryColor}
-          title="Add to cart"
-          onPress={props.onAddToCart}
-        />
-      </View>
-    </View>
+    </TouchableComp>
   );
 };
 
@@ -53,10 +70,12 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   title: {
+    fontFamily: "open-sans-bold",
     fontSize: 18,
-    marginVertical: 4,
+    marginVertical: 2,
   },
   price: {
+    fontFamily: "open-sans",
     fontSize: 14,
     color: "#888",
   },
