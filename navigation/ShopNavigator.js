@@ -1,34 +1,28 @@
-import { createAppContainer } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
-import { Platform } from "react-native";
+import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { Platform } from 'react-native';
 
-import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
-import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
-import Colors from "../constants/Colors";
+import ProductsOverviewScreen from '../screens/shop/ProductsOverviewScreen';
+import ProductDetailScreen from '../screens/shop/ProductDetailScreen';
+import Colors from '../constants/Colors';
 
 const ProductsNavigator = createStackNavigator(
   {
-    productsOverview: {
-      screen: ProductsOverviewScreen,
-    },
-    productDetails: {
-      screen: ProductDetailScreen,
-    },
+    ProductsOverview: ProductsOverviewScreen,
+    ProductDetail: ProductDetailScreen
   },
   {
     defaultNavigationOptions: {
       headerStyle: {
-        backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+        backgroundColor: Platform.OS === 'android' ? Colors.primary : ''
       },
       headerTitleStyle: {
-        fontFamily: "open-sans-bold",
+        fontFamily: 'open-sans-bold'
       },
       headerBackTitleStyle: {
-        fontFamily: "open-sans",
+        fontFamily: 'open-sans'
       },
-      headerTintColor:
-        Platform.OS === "android" ? "white" : Colors.primaryColor,
-    },
+      headerTintColor: Platform.OS === 'android' ? 'white' : Colors.primary
+    }
   }
 );
 
